@@ -1,0 +1,19 @@
+{
+	"zimbra-zimlet-bigbluebutton": {
+		"title": "BigBlueButton",
+		"dialInText": "Alternatively you can join this meeting using a telephone number and PIN. For more information visit: ",
+		"slogan": "BigBlueButton provides real-time sharing of audio, video, slides, chat, and screen.",
+		"joinHostMeeting": "Join or Host Meeting",
+		"addMeetingDetails": "Add BigBlueButton information to the Appointment",
+		"default_passwords": "Here you can set the default moderator and attendee passwords. Changes here affect only new meetings, not already planned ones.",
+		"moderator_password": "Moderator Password",
+		"attendee_password": "Attendee Password",
+		"password_required": "Please set a Moderator and Attendee Password",
+		"Meeting_Message": "To join the Meeting Online go to:<br/>[meetinglink]<br/><br/>You can use the following password:<br/>[passwordattendeePassword]<br/>",
+		"set_defaults": "Set as default for future meetings",
+		"preferences": "Preferences",
+		"passwordRequired": "Please set a Moderator and Attendee Password",
+		"fail": "Failed to create BigBlueButton meeting"
+	}
+}
+
