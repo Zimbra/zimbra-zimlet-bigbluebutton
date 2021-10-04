@@ -1,19 +1,20 @@
 import { createElement, Component, render } from 'preact';
 import { compose } from 'recompose';
 import { withIntl } from '../../enhancers';
-import { Text } from 'preact-i18n';
 import style from './style';
 import { Button } from '@zimbra-client/blocks';
 import { ActionMenuGroup, ActionMenuItem, NestedActionMenuItem, ModalDialog } from '@zimbra-client/components';
 import { gql } from '@apollo/client';
+import { useState, useCallback, useMemo, useContext } from 'preact/hooks';
+import { Text, IntlProvider, Localizer, IntlContext } from 'preact-i18n';
 
 function createMore(props, context) {
     const childIcon = (
         <span class={style.appIcon}>
         </span>);
 
-    //By importing withIntl the json translations from the intl folder are loaded into context, can we can access them directly, or use <Text...
-    const zimletStrings = context.intl.dictionary['zimbra-zimlet-bigbluebutton'];
+    const { intl } = useContext(IntlContext);
+    const zimletStrings = intl.dictionary['zimbra-zimlet-bigbluebutton'];
 
     const { zimbraBatchClient } = context;
     const zimletProperties = new Map();
