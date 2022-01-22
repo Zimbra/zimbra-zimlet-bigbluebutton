@@ -61,7 +61,7 @@ function createMore(props, context) {
             attendeePassword = pwgen();
         }
         let xhr = new XMLHttpRequest();
-        xhr.open("GET", '/service/extension/bigbluebutton?action=getNewMeetingId&attendeePassword=' + attendeePassword + '&moderatorPassword=' + moderatorPassword, true);
+        xhr.open("GET", '/service/extension/bigbluebutton?action=getNewMeetingId&attendeePassword=' + attendeePassword + '&moderatorPassword=' + moderatorPassword +'&hostname='+parent.window.location.hostname, true);
         xhr.send();
         xhr.onreadystatechange = function (oEvent) {
             var meetingId = "";
