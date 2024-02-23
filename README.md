@@ -1,6 +1,8 @@
 # zimbra-zimlet-bigbluebutton
 
-Add BigBlueButton meeting information to calendar appointments in Zimbra.
+Add BigBlueButton meeting information to calendar appointments in Zimbra. This repository holds the Zimlet for Zimbra Modern UI which will also work on Zimbra Desktop Modern.
+
+A classic UI Zimlet can be found at https://github.com/Zimbra-Community/bigbluebutton-zimlet but Zimbra Desktop Classic is not supported.
 
 ## Installation
 

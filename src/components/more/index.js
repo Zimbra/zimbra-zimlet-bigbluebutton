@@ -61,7 +61,17 @@ function createMore(props, context) {
             attendeePassword = pwgen();
         }
         let xhr = new XMLHttpRequest();
-        xhr.open("GET", '/service/extension/bigbluebutton?action=getNewMeetingId&attendeePassword=' + attendeePassword + '&moderatorPassword=' + moderatorPassword +'&hostname='+parent.window.location.hostname, true);
+        let hostname;
+        if(context.zimbraOrigin)
+        {
+           hostname = context.zimbraOrigin;
+        }
+        else
+        {
+           hostname = 'https://' + parent.window.location.hostname;
+        }
+        //removing https:// from hostname here as to avoid having to change Classic UI Zimlet
+        xhr.open("GET", context.zimbraOrigin + '/service/extension/bigbluebutton?action=getNewMeetingId&attendeePassword=' + attendeePassword + '&moderatorPassword=' + moderatorPassword +'&hostname='+hostname.replace('https://',''), true);
         xhr.send();
         xhr.onreadystatechange = function (oEvent) {
             var meetingId = "";
@@ -75,7 +85,7 @@ function createMore(props, context) {
                 }
 
                 if (meetingId.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/i)) {
-                    let meetinglink = 'https://' + parent.window.location.hostname + '/service/extension/bigbluebutton?meetingId=' + meetingId;
+                    let meetinglink = hostname + '/service/extension/bigbluebutton?meetingId=' + meetingId;
                     //handleLocationChange is a method passed (via props) to the Zimlet slot that allows you to set the location of the appointment
                     props.handleLocationChange({ value: [meetinglink] });
 
@@ -158,15 +168,15 @@ function createMore(props, context) {
                 header={false}
                 footer={false}
             >
-                <header class="zimbra-client_modal-dialog_header"><h2>{zimletStrings.title}</h2><button onClick={handleClose} aria-label="Close" class="zimbra-client_close-button_close zimbra-client_modal-dialog_actionButton"><span role="img" class="zimbra-icon zimbra-icon-close blocks_icon_md"></span></button></header>
+                <header class="zimbra-client_modal-dialog_header"><button onClick={handleClose} aria-label="Close" class="zimbra-client_close-button_close zimbra-client_modal-dialog_actionButton"><span role="img" class="zimbra-icon zimbra-icon-close blocks_icon_md"></span></button></header>
                 <div class="zimbra-client_modal-dialog_content zimbra-client_language-modal_languageModalContent">
                     <div class={style.appLogo}>&nbsp;</div><br /><br />
                     {zimletStrings.default_passwords}<br /><br /><table>
                         <tr><td>{zimletStrings.moderator_password} :</td><td><input id="bigbluebutton_moderator_password" type="text" autofocus="" value={moderatorPassword} class="zimbra-client_text-input_input zimbra-client_text-input_wide" /></td></tr>
                         <tr><td>{zimletStrings.attendee_password} :</td><td><input id="bigbluebutton_attendee_password" type="text" autofocus="" value={attendeePassword} class="zimbra-client_text-input_input zimbra-client_text-input_wide" /></td></tr>
-                        <tr><td>{zimletStrings.set_defaults} :</td><td><input id="set_defaults" type="checkbox" autofocus="" class="blocks_choice-input_choiceInputContainer" /></td></tr>
+                        <tr><td>{zimletStrings.set_defaults} :<br/><br/></td><td><input id="set_defaults" type="checkbox" autofocus="" class="blocks_choice-input_choiceInputContainer" /></td></tr>
                     </table></div>
-                <footer class="zimbra-client_modal-dialog_footer"><button type="button" onClick={handleSave} class="blocks_button_button blocks_button_primary blocks_button_regular zimbra-client_sidebar-primary-button_button">OK</button></footer>
+                <footer class="zimbra-client_modal-dialog_footer"><Button onClick={handleSave} styleType="primary" brand="primary">OK</Button></footer>
             </ModalDialog>
         );
 
